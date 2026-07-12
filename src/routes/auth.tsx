@@ -1,8 +1,13 @@
 import { createFileRoute, useNavigate, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
-import { supabase } from "@/integrations/supabase/client";
 import { Zap } from "lucide-react";
-import { toast } from "sonner";
+import authCover from "@/assets/auth-cover.jpg.asset.json";
+import authVideo from "@/assets/auth-cover.mp4";
+
+const toast = {
+  success: (message: string) => console.info(message),
+  error: (message: string) => window.alert(message),
+};
 
 export const Route = createFileRoute("/auth")({
   ssr: false,
@@ -28,15 +33,21 @@ function AuthPage() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    supabase.auth.getUser().then(({ data }) => {
-      if (data.user) navigate({ to: "/dashboard" });
+    let active = true;
+    void import("@/integrations/supabase/client").then(async ({ supabase }) => {
+      const { data } = await supabase.auth.getUser();
+      if (active && data.user) navigate({ to: "/dashboard" });
     });
+    return () => {
+      active = false;
+    };
   }, [navigate]);
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
     setLoading(true);
     try {
+      const { supabase } = await import("@/integrations/supabase/client");
       if (mode === "signup") {
         const { error } = await supabase.auth.signUp({
           email,
@@ -62,8 +73,22 @@ function AuthPage() {
   }
 
   return (
-    <div className="min-h-dvh grid lg:grid-cols-2 bg-page">
-      <div className="hidden lg:flex flex-col justify-between p-10 border-r border-border bg-background">
+    <div className="min-h-dvh grid lg:grid-cols-2 dark relative">
+      <div className="absolute inset-0 z-0">
+        <video
+          src={authVideo}
+          poster={authCover.url}
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-black/60" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-black/80" />
+      </div>
+
+      <div className="relative z-10 hidden lg:flex flex-col justify-between p-10 border-r border-white/10 bg-black/20 backdrop-blur-sm">
         <div className="flex items-center gap-2">
           <div className="h-8 w-8 rounded-md bg-primary text-primary-foreground grid place-items-center">
             <Zap className="h-4 w-4" />
@@ -96,8 +121,9 @@ function AuthPage() {
         <div className="text-[11px] text-muted-foreground">Demo environment · Simulated operational data</div>
       </div>
 
-      <div className="flex items-center justify-center p-6">
-        <form onSubmit={submit} className="w-full max-w-sm space-y-5">
+      <div className="relative z-10 flex items-center justify-center p-6">
+        <div className="w-full max-w-sm bg-card/85 backdrop-blur-xl border border-border/60 shadow-2xl rounded-xl p-8">
+          <form onSubmit={submit} className="space-y-5">
           <div className="lg:hidden flex items-center gap-2 mb-4">
             <div className="h-8 w-8 rounded-md bg-primary text-primary-foreground grid place-items-center">
               <Zap className="h-4 w-4" />
@@ -192,6 +218,7 @@ function AuthPage() {
             .input:focus { border-color: var(--color-primary); }
           `}</style>
         </form>
+        </div>
       </div>
     </div>
   );
