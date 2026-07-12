@@ -1,0 +1,2 @@
+# World Cup Command
+StadiumOS AI — an intelligent command-center dashboard for FIFA World Cup 2026 stadium operations. Real-time crowd intelligence, digital twin mapping, AI copilot, incident command, security/medical/volunteer/transport ops, and sustainability tracking. Built with TanStack Start, React 19, Supabase, and Leaflet. Built for Hack2Skill's Challenge 4: Smart Stadiums & Tournament Operations.
