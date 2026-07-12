@@ -52,7 +52,7 @@ The route structure is defined in `src/routes`.
 Auth is handled by Supabase.
 
 ### Sign up
-
+![login](login.png)
 On `/auth`, the user can switch to sign-up mode and provide:
 
 - full name

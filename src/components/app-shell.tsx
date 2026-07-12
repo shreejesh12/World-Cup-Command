@@ -1,5 +1,7 @@
 import { Link, Outlet, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
+import { FloatingFootballs, BouncingBall } from "@/components/fun-elements";
+
 import {
   LayoutDashboard,
   Map,
@@ -77,7 +79,13 @@ export function AppShell() {
   }
 
   return (
-    <div className="min-h-dvh flex bg-page">
+    <div className="min-h-dvh flex bg-page relative">
+  {!emergency && (
+    <div className="pointer-events-none fixed inset-0 z-0 opacity-[0.08]">
+      <FloatingFootballs />
+    </div>
+  )}
+
       {emergency && (
         <div className="fixed top-0 inset-x-0 z-50 bg-[var(--color-status-crit)] text-white text-sm font-medium px-4 py-2 flex items-center justify-between">
           <div className="flex items-center gap-2">

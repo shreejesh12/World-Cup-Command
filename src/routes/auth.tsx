@@ -4,6 +4,7 @@ import { Zap } from "lucide-react";
 import authCover from "@/assets/auth-cover.jpg.asset.json";
 import authVideo from "@/assets/auth-cover.mp4";
 
+import { FloatingFootballs, PlayerStripe, BouncingBall } from "@/components/fun-elements";
 const toast = {
   success: (message: string) => console.info(message),
   error: (message: string) => window.alert(message),
@@ -86,6 +87,7 @@ function AuthPage() {
         />
         <div className="absolute inset-0 bg-black/60" />
         <div className="absolute inset-0 bg-gradient-to-br from-black/80 via-black/50 to-black/80" />
+        <FloatingFootballs />
       </div>
 
       <div className="relative z-10 hidden lg:flex flex-col justify-between p-10 border-r border-white/10 bg-black/20 backdrop-blur-sm">
@@ -96,7 +98,9 @@ function AuthPage() {
           <div className="font-semibold">StadiumOS AI</div>
         </div>
         <div className="space-y-6 max-w-md">
-          <div className="section-label">FIFA World Cup 2026 · Operations</div>
+          <div className="section-label flex items-center gap-2">
+            <BouncingBall /> FIFA World Cup 2026 · Operations
+          </div>
           <h1 className="text-4xl font-semibold tracking-tight leading-tight">
             The Operating System for Stadium and Tournament Operations.
           </h1>
@@ -117,6 +121,8 @@ function AuthPage() {
               </div>
             ))}
           </div>
+          <PlayerStripe className="pt-2" />
+
         </div>
         <div className="text-[11px] text-muted-foreground">Demo environment · Simulated operational data</div>
       </div>
