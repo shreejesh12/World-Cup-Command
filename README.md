@@ -179,7 +179,7 @@ The data is intentionally simulated so the UI feels like a live command room wit
 - 30-minute crowd forecast chart
 - staffing recommendations with accept and dismiss actions
 - data-source health list
-
+![dash](dash.png)
 ### Venue profile
 
 - stadium images
@@ -194,6 +194,7 @@ The data is intentionally simulated so the UI feels like a live command room wit
 - zone density circles and tooltip details
 - selectable zone list and detail panel
 - accessibility toggle for wheelchair routes
+![dig](dig.png)
 
 ### AI copilot
 
